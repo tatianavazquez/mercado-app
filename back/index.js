@@ -36,8 +36,12 @@ app.get('/api/search', async (req, res, next) => {
         })
     
     res.json(myProducts)
-    
-})
+});
+
+/*app.get(`/api/products`, (req, res, next) => {
+    console.log(req.params)
+    res.json('Hola')
+})*/
 
 app.listen(3001, () => console.log('Estoy aca!'));
 
