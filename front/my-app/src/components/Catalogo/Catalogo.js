@@ -61,7 +61,31 @@ const Catalogo = ({products, conditionNew, conditionUsed}) => {
         console.log(conditionUsed)
     }
     
+    const getLow = () => {
+        products.sort(function(a, b) {
+            if ( a.price < b.price) {
+                return -1;
+            } else if (a.price == b.price) {
+                return 0;
+            } else {
+                return 1;
+            }
+          })
+          setAnchorEl(null)
+    }
    
+    const getHigh = () => {
+        products.sort(function(a, b) {
+            if ( a.price > b.price) {
+                return -1;
+            } else if (a.price == b.price) {
+                return 0;
+            } else {
+                return 1;
+            }
+      })
+          setAnchorEl(null)
+    }
 
     return (
         <div>
@@ -83,6 +107,22 @@ const Catalogo = ({products, conditionNew, conditionUsed}) => {
                 >
               <MenuItem onClick={getNew} > Nuevo </MenuItem>
               <MenuItem onClick={getUsed}> Usado </MenuItem>
+            </Menu>
+        </div>
+
+        <div>
+            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} >
+               Ordenar por precio:
+            </Button>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                >
+              <MenuItem onClick={getLow} > Menor </MenuItem>
+              <MenuItem onClick={getHigh}> Mayor </MenuItem>
             </Menu>
         </div>
 
