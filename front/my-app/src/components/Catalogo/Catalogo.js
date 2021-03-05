@@ -2,45 +2,26 @@ import React, { useState, useEffect } from "react";
 import ProductCard from '../ProductCard/ProductCard.js';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom'
 import './Catalogo.css';
 import Paginacion from '../Pagination/Paginacion.js';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const Catalogo = ({products, conditionNew, conditionUsed}) => {
+const Catalogo = ({products}) => {
+
+    const history = useHistory();
 
     const [loading, setLoading] = useState(true);
     const [productsXPage, setProductsXPage] = useState(30);
     const [currentPage, setCurrentPage] = useState(1);
     const [anchorEl, setAnchorEl] = useState(null);
-    //const [indexOfLastProduct, setIndexOfLastProduct] = useState(currentPage * productsXPage);
-    //const [indexOfFirstProduct, setIndexOfFirstProduct] = useState( indexOfLastProduct - productsXPage)
-    const [prods, setProds] = useState(products)
-
+    const [anchorEl1, setAnchorEl1] = useState(null)
 
     var indexOfLastProduct = currentPage * productsXPage;
     var indexOfFirstProduct = indexOfLastProduct - productsXPage
     var currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
-
-    /*const functPaginacion = (myProducts, myCurrentPage) => {
-        setIndexOfLastProduct(myCurrentPage * productsXPage) //30 //60
-        if(myCurrentPage === 1){
-            setIndexOfFirstProduct(indexOfLastProduct - productsXPage)//0 //30
-        }
-        if(myCurrentPage === 2){
-            setIndexOfFirstProduct(30)//0 //30
-        }
-        setCurrentProducts(myProducts.slice(indexOfFirstProduct, indexOfLastProduct))
-        console.log('index of last product:' + indexOfLastProduct +
-        'index of first product:' + indexOfFirstProduct +
-            'Productos totales:' + myProducts.length + 'Current Products:' + currentProducts.length +
-            'Current Page:' + myCurrentPage)
-        return currentProducts;
-    }
-
-    useEffect(() => functPaginacion(prods, currentPage), 
-    [prods]);*/
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -50,15 +31,20 @@ const Catalogo = ({products, conditionNew, conditionUsed}) => {
         setAnchorEl(null)
     }
 
+    const handleClick1 = (event) => {
+        setAnchorEl1(event.currentTarget);
+    }
+
+    const handleClose1 = () => {
+        setAnchorEl1(null)
+    }
+
     const getNew = () => {
-        setProds(conditionNew)
-        console.log(prods)
+        history.push('/catalogoNew')
     };
 
     const getUsed = () => {
-        //functPaginacion(conditionUsed, currentPage)
-        currentProducts = conditionUsed
-        console.log(conditionUsed)
+        history.push('/catalogoUsed')
     }
     
     const getLow = () => {
@@ -84,7 +70,7 @@ const Catalogo = ({products, conditionNew, conditionUsed}) => {
                 return 1;
             }
       })
-          setAnchorEl(null)
+          setAnchorEl1(null)
     }
 
     return (
@@ -105,21 +91,21 @@ const Catalogo = ({products, conditionNew, conditionUsed}) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 >
-              <MenuItem onClick={getNew} > Nuevo </MenuItem>
+              <MenuItem onClick={getNew} > Sin uso </MenuItem>
               <MenuItem onClick={getUsed}> Usado </MenuItem>
             </Menu>
         </div>
 
         <div>
-            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick} >
+            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick1} >
                Ordenar por precio:
             </Button>
             <Menu
                 id="simple-menu"
-                anchorEl={anchorEl}
+                anchorEl={anchorEl1}
                 keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
+                open={Boolean(anchorEl1)}
+                onClose={handleClose1}
                 >
               <MenuItem onClick={getLow} > Menor </MenuItem>
               <MenuItem onClick={getHigh}> Mayor </MenuItem>
@@ -127,7 +113,7 @@ const Catalogo = ({products, conditionNew, conditionUsed}) => {
         </div>
 
         <div className="grid">
-               
+             
             {currentProducts.map(el => 
                 <ProductCard className="card" 
                     thumbnail={el.thumbnail}

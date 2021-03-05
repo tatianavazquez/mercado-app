@@ -2,7 +2,8 @@ import * as types from '../actions/actionTypes.js';
 
 const initialState = {
     products: [],
-    conditionNew: []
+    conditionNew: [],
+    conditionUsed: []
 }
 
 export default function Reducer (state = initialState, action) {
