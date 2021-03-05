@@ -8,3 +8,7 @@
 .card {
     position: relative;   
 }
+
+.catalogoFilterIcon {
+    display: flex
+}

@@ -23,6 +23,8 @@ const Catalogo = ({products}) => {
     var indexOfFirstProduct = indexOfLastProduct - productsXPage
     var currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
 
+    useEffect(() => setLoading(false), [products])
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     }
@@ -75,6 +77,10 @@ const Catalogo = ({products}) => {
 
     return (
         <div>
+        { loading === true ?
+            <h1> Cargando... </h1>
+            :
+        <div>
          <Paginacion
                  productsXPage={productsXPage} 
                  products={products}
@@ -123,8 +129,10 @@ const Catalogo = ({products}) => {
                     condition={el.condition}
                     available_quantity={el.available_quantity}/>)}          
         </div>
-    
         </div>
+    }
+        </div>
+
     )
 }
 
