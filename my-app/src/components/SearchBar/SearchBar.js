@@ -7,17 +7,20 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './Styles.js';
-import { Link, Redirect } from 'react-router-dom';
+//import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getProducts } from '../../redux/actions/actions.js';
-import PropTypes from 'prop-types';
 
-const SearchBar = ({ getProducts, products, history }) => {
+
+const SearchBar = ({ getProducts, products }) => {
 
     const classes = useStyles();
     const [ keyword, setKeyword ] = useState('');
     const [ myProducts, setMyProducts ] = useState();
-   
+    
+    const history = useHistory();
     
     useEffect(() => console.log(myProducts), [])
 
