@@ -2,11 +2,16 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const cors = require('cors');
-
+//var path = ['/tati']
 
 var products;
 
 app.use(cors());
+
+//app.use(express.static(path.join(__dirname, 'build')));
+/*app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });*/
 
 app.get('/api/search', async (req, res, next) => {
     let { query } = req.query;
