@@ -4,6 +4,7 @@
         "client:build": "cd my-app && npm run build",
         "start": "cd back && node index.js"
     },
+    "node": "12.18.3",
     "dependencies": {
         "axios": "^0.21.1",
         "cors": "^2.8.5",
