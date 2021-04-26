@@ -1,6 +1,7 @@
 {
     "name": "mercado-app",
     "scripts": {
-        "client:build": "cd my-app && npm run build"
+        "client:build": "cd my-app && npm run build",
+        "start": "cd back && node index.js"
       }
 }
